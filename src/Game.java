@@ -1,6 +1,7 @@
 
 // necessary imports
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-// this class represents a Game which is the driver class of our application
+
 public class Game extends Application {
 
     // constant values
@@ -42,10 +43,13 @@ public class Game extends Application {
     private Tournament rpsGame;
     private Match currentMatch;
 
-    /**
+    /*
      * The main method
-     *
+     * public static void main(String[] args)
+     * the main method
      * @param args the command line arguments
+     * precondition: none
+     * postcondition: the program starts
      */
     public static void main(String[] args) {
 
@@ -53,7 +57,13 @@ public class Game extends Application {
 
     }
 
-    // this method contains the logic of game to decide the winners and lossers
+    /* match
+     * public void match(Match match)
+     * this method contains the logic of game to decide the winners and lossers
+     * parameters - Match Match has players
+     * precondition: The players are declared
+     * postcondition: the match has been decided
+     */
     public void match(Match match) {
 
         Player p1 = match.getPlayerOne();
@@ -97,7 +107,13 @@ public class Game extends Application {
 
     }
 
-    // get the choice of user
+    /* getUserSymbol
+     * private String getUserSymbol()
+     * get the choice of user
+     * parameters: none
+     * precondition: none
+     * postcondition: returns the choice
+     */
     private String getUserSymbol() {
         String userChoice = null;
         if (rockButton.isSelected()) {
@@ -110,7 +126,13 @@ public class Game extends Application {
         return userChoice;
     }
 
-    // select randomly and return the choice of a computer player
+    /* getComputerSymbol
+     * private String getComputerSymbol
+     * select randomly and return the choice of a computer player
+     * parameters - none
+     * preconditions: none
+     * postconditions: the computer's choice is returned
+     */
     private String getComputerSymbol() {
         int num;
         Random randomFactory = new Random();
@@ -131,7 +153,14 @@ public class Game extends Application {
         }
         return sign;
     }
-
+    
+    /* start
+     * public void start(Stage primaryStage) throws Exception
+     * creates and controls the GUI
+     * parameters - Stage primaryStage
+     * precondition: none
+     * postcondition: the GUI is created and displayed
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         allPlayersList = FXCollections.observableArrayList();
@@ -346,6 +375,13 @@ public class Game extends Application {
         });
     }
 
+    /* initializeGame
+     * private void initializeGame()
+     * initializes the game, and deactivates certain buttons
+     * parameters - none
+     * precondition: none
+     * postcondition: game is started and buttons are deactivated
+     */
     private void initializeGame() {
         singleGame.setSelected(true);
         setChoiceButtonsVisibility(false);
@@ -354,6 +390,13 @@ public class Game extends Application {
 
     }
 
+    /* setChoiceButtonsVisibility
+     * private void setChoiceButtonsVisibility(boolean status)
+     * turns on or off certain buttons
+     * parameters - boolean status
+     * precondition: none
+     * postcondition: buttons are turned on or off
+     */
     private void setChoiceButtonsVisibility(boolean status) {
 
         turnLabel.setVisible(status);
@@ -363,26 +406,52 @@ public class Game extends Application {
         submitButton.setVisible(status);
     }
 
+    /* clearUserSelection
+     * private void clearUserSelection()
+     * clears the user selection
+     * Parameters - none
+     * precondition: none
+     * postcondition: user selection is cleared
+     */
     private void clearUserSelection() {
         rockButton.setSelected(false);
         paperButton.setScaleShape(false);
         scissorsButton.setSelected(false);
     }
 
+    /* setGameTypeButtonDisableStatus
+     * private void setGameTypeButtonDisableStatus(boolean status)
+     * turns on or off buttons based on what game type is selected
+     * parameters - boolean status
+     * precondition: none
+     * postcondition: buttons are on or off based on game type
+     */
     private void setGameTypeButtonsDisableStatus(boolean status) {
         startGameButton.setDisable(status);
         singleGame.setDisable(status);
         tournamentGame.setDisable(status);
     }
 
-    
+    /* setPlayerButtonsDisableStatus
+     * private void setPlayerButtonsDisableStatus(boolean status)
+     * turns on or off the add and remove players buttons and clears the player list
+     * parameter - boolean status
+     * precondition: none
+     * postcondition: buttons are on or off, and player list is clear
+     */
     private void setPlayerButtonsDisableStatus(boolean status) {
         allPlayersList.clear();
         addPlayerButton.setDisable(status);
         removePlayerButton.setDisable(status);
     }
     
-    // show game stats
+    /* showGameStats
+     * private void showGameStats()
+     * show game stats
+     * parameters - none
+     * precondition: there are players in the list
+     * postcondition - the stats are shown in a window
+     */
     private void showGameStats() {
         Stage stage = new Stage();
         TableView<Player> statsTable = new TableView<>();
@@ -403,13 +472,36 @@ public class Game extends Application {
 
     }
 
-    // save the game stats to files
+    /* saveGameStats
+     * private void saveGameStats()
+     * save the game stats to files
+     * parameters - none
+     * precondition: a game has been run, and the players list has players in it
+     * postcondition: new files containing the logs and stats are created
+     */
     private void saveGameStats() {
+    	
+    	int a = 0;
+    	
+        File stats = new File("stats.txt");
+        File log = new File("Log.txt");
+        boolean exists = stats.exists();
+        while(exists)
+        {
+        	stats.renameTo(new File("stats" + a + ".txt"));
+        	log.renameTo(new File("Log" + a + ".txt"));
+        	
+        	a++;
+        	exists = stats.exists();
+        	
+        	
+        }
+    	
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("Log.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(log));
             writer.write(outputArea.getText());
             writer.close();
-            writer = new BufferedWriter(new FileWriter("stats.txt"));
+            writer = new BufferedWriter(new FileWriter(stats));
             for (int i = 0; i < allPlayersList.size(); i++) {
                 writer.write(allPlayersList.get(i).stats());
                 writer.newLine();

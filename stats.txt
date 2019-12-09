@@ -1,4 +1,2 @@
-Name: baani, Games Won: 1, Games Lost: 1
-Name: seth, Games Won: 0, Games Lost: 1
-Name: kyle, Games Won: 0, Games Lost: 1
-Name: abdu, Games Won: 2, Games Lost: 0
+Name: g, Games Won: 1, Games Lost: 0
+Name: Computer, Games Won: 0, Games Lost: 1

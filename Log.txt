@@ -1,41 +1,13 @@
 Round # : 01 
 Match # 01:
-	seth                 v               baani 
-Match # 02:
-	kyle                 v                abdu 
+	g                    v  Computer (Computer)
 
 ------------------
 
 Round # : 01 Match # 01:
-	seth                 v     baani (Computer)
+	g                    v  Computer (Computer)
 
-"seth " chooses Rock
-"baani (Computer)" chooses Paper
-"seth" is out of game. seth`s choice was "Rock"
-
-Round # : 01 Match # 02:
-	kyle                 v      abdu (Computer)
-
-"kyle " chooses Paper
-"abdu (Computer)" chooses Paper
-Game Draw.
-
-It`s your turn again.
-
-"kyle " chooses Scissors
-"abdu (Computer)" chooses Rock
-"kyle" is out of game. kyle`s choice was "Scissors"
-
-Round # : 02 Match # 01:
-	baani                v      abdu (Computer)
-
-"baani " chooses Paper
-"abdu (Computer)" chooses Paper
-Game Draw.
-
-It`s your turn again.
-
-"baani " chooses Scissors
-"abdu (Computer)" chooses Rock
-"baani" is out of game. baani`s choice was "Scissors"
+"g " chooses Rock
+"Computer (Computer)" chooses Scissors
+"Computer" is out of game. Computer`s choice was "Scissors"
 

@@ -23,7 +23,13 @@ public class Tournament {
         matchCounter = 1;
     }
 
-    // randomly schedule matches for this tournament
+    /* scheduleMatches
+     * private LinkedList<Player> scheduleMatches(ArrayList<Player> players)
+     * randomly schedule matches for this tournament
+     * parameter - ArrayList<Player> players
+     * precondition: Array list is declared and has players in it
+     * postcondition: matches are scheduled
+     */
     private LinkedList<Player> scheduleMatches(ArrayList<Player> players) {
         LinkedList<Player> schedule = new LinkedList<>();
         Random random = new Random();
@@ -35,6 +41,13 @@ public class Tournament {
         return schedule;
     }
     
+    /* getFirstRoundDetails
+     * public String getFirstRoundDetails()
+     * gets first round details and prints them
+     * parameters - none
+     * precondition: a round has happened
+     * postcondition: the details are printed out
+     */
     public String getFirstRoundDetails() {
         String output = String.format("Round # : %02d \n", round);
         int counter = 1;
@@ -47,7 +60,13 @@ public class Tournament {
         return output + "\n------------------\n\n";
     }
 
-    // start the tournament
+    /* nextMatch
+     * public Match nextMatch()
+     * start the tournament
+     * parameter - none
+     * precondition: the tournament variables are set up
+     * Postcondition: match is started
+     */
     public Match nextMatch() {
         
         if (matchCounter <= (totalPlayers / 2 * round)) {
@@ -71,10 +90,24 @@ public class Tournament {
         return tempMatch;
     }
     
+    /* moveWinnerToNextRound
+     * public void moveWinnerToNextRound(Player winner)
+     * moves winners to next round
+     * parameter - Player winner
+     * precondition: there was a winner
+     * postcondition: winner is moved to next round
+     */
     public void moveWinnerToNextRound(Player winner) {
         matchesSchedule.addFirst(winner);
     }
     
+    /* isComplete
+     * public boolean isComplete()
+     * checks whether all the matches have been done
+     * parameter - none
+     * precondition: matchesSchedule exists
+     * postcondition: returned whether all the matches are done
+     */
     public boolean isComplete() {
         return matchesSchedule == null || matchesSchedule.isEmpty();
     }
